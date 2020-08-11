@@ -7,6 +7,31 @@
       pointer-events: auto;
     }
   }
+
+  &:hover,
+  &:focus {
+    .social-block__link svg {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+.social-block--active {
+  .social-block__link {
+    &:active,
+    &:active:focus,
+    &:focus {
+      color: $c-purple;
+      background-color: $c-light;
+      border-color: $c-light;
+    }
+  
+    &:focus {
+      border-color: $c-purple;
+      outline: none;
+    }
+  }
 }
 
 .social-block__toggler {
@@ -27,14 +52,20 @@
   }
 
   &::before {
-    @include center;
     content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    border-radius: 50%;
     background-color: $c-light;
     border: 2px solid $c-light;
+    border-radius: 50%;
     z-index: -1;
+
+    transform: scale(1);
+    transition-property: transform, color;
+    transition-duration: 300ms;
   }
 
   svg {
@@ -49,8 +80,7 @@
     color: $c-purple;
 
     &::before {
-      width: 112.5%;
-      height: 112.5%;
+      transform: scale(1.125);
     }
   }
 
@@ -161,13 +191,15 @@
 }
 
 .social-block__link {
+  @include flex-center;
+
   position: relative;
-  display: block;
   width: 4rem;
   height: 4rem;
   color: $c-light;
   border: 2px solid transparent;
   border-radius: 50%;
+  transition: color 200ms;
 
   @media (min-width: $stop-scaling) {
     width: 40px;
@@ -188,28 +220,20 @@
     color: $c-purple;
   }
 
-  &:focus {
-    color: $c-purple;
-    background-color: $c-light;
-    border-color: $c-purple;
-    outline: none;
-  }
-
-  &:active,
-  &:active:focus {
-    color: $c-purple;
-    background-color: $c-light;
-    border-color: $c-light;
-  }
-
   svg {
-    @include center;
+    opacity: 0;
+    transform: translateY(-5px);
+    transition-property: transform, opacity;
+    transition-duration: 300ms;
   }
 
   &--fb {
+    
     svg {
       width: 0.8rem;
       height: 1.7rem;
+
+      transition-delay: 100ms;
 
       @media (min-width: $stop-scaling) {
         width: 8px;
@@ -219,9 +243,12 @@
   }
 
   &--insta {
+    
     svg {
       width: 1.5rem;
       height: 1.5rem;
+
+      transition-delay: 200ms;
 
       @media (min-width: $stop-scaling) {
         width: 15px;
@@ -231,9 +258,12 @@
   }
 
   &--vk {
+    
     svg {
       width: 1.7rem;
       height: 1rem;
+      
+      transition-delay: 300ms;
 
       @media (min-width: $stop-scaling) {
         width: 10px;
